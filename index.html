@@ -4,14 +4,28 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
+        <style>
+            .red {
+                color: red;
+            }
+            .green {
+                color: green;
+            }
+        </style>
     </head>
     <body>
         <div id="app"></div>
         <script src="mini_vue.js"></script>
         <script>
-            const vdom = h("div", { class: "red" }, h("span", null, "hello"))
+            const vdom = h("div", { class: "red" }, [h("span", null, "hello")])
 
             mount(vdom, document.getElementById("app"))
+
+            const vdom2 = h("div", { class: "green" }, [
+                h("span", null, "changed"),
+            ])
+
+            patch(vdom, vdom2)
         </script>
     </body>
 </html>
