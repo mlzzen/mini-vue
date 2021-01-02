@@ -17,15 +17,23 @@
         <div id="app"></div>
         <script src="mini_vue.js"></script>
         <script>
-            const vdom = h("div", { class: "red" }, [h("span", null, "hello")])
-
-            mount(vdom, document.getElementById("app"))
-
-            const vdom2 = h("div", { class: "green" }, [
-                h("span", null, "changed"),
-            ])
-
-            patch(vdom, vdom2)
+            const App = {
+                data: reactive({
+                    count: 0,
+                }),
+                render() {
+                    return h(
+                        "div",
+                        {
+                            onClick: () => {
+                                this.data.count++
+                            },
+                        },
+                        String(this.data.count),
+                    )
+                },
+            }
+            mountApp(App, document.getElementById("app"))
         </script>
     </body>
 </html>
