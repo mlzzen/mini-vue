@@ -116,8 +116,8 @@ class Dep {
         }
     }
     notify() {
-        this.subscribers.forEach((effect: Function) => {
-            ;(effect as Function)()
+        this.subscribers.forEach((effect) => {
+            effect()
         })
     }
 }
@@ -126,12 +126,12 @@ function watchEffect(effect: Function) {
     effect()
     activeEffect = null
 }
-const targetMap = new WeakMap()
+const targetMap = new WeakMap<object, Map<string, Dep>>()
 
 function getDep(target: object, key: string) {
     let depsMap = targetMap.get(target)
     if (!depsMap) {
-        depsMap = new Map()
+        depsMap = new Map<string, Dep>()
         targetMap.set(target, depsMap)
     }
     let dep = depsMap.get(key)
